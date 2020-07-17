@@ -26,6 +26,7 @@ export default {
   methods: {
     addtoCart(it) {
      this.$store.commit('inCart', it)
+     throw new Error("ADD TO CART ERROR")
     },
     sendInfo(it) {
      this.$store.commit('addtoInfo', it)
