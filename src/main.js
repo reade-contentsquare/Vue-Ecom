@@ -22,7 +22,7 @@ Vue.config.productionTip = false
 Vue.config.devtools = true
 
 router.beforeEach((to, from, next) => {
-	window._uxa.push(['trackPageview', to.name]);
+	_uxa && _uxa.push(['trackPageview', to.name]);
   next();
 })
 
