@@ -6,11 +6,15 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "start": "node server.js",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "puppeteer": "node --experimental-modules puppeteer.mjs"
   },
+  "type": "module",
   "dependencies": {
     "@fullstory/browser": "^1.4.4",
+    "cli-progress": "^3.8.2",
     "express": "^4.16.4",
+    "puppeteer": "^5.2.0",
     "rollbar": "^2.18.0",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
@@ -31,8 +35,7 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
+      "plugin:vue/essential"
     ],
     "rules": {},
     "parserOptions": {
