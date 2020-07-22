@@ -4,7 +4,6 @@ import router from './router'
 import store from './store';
 
 import Rollbar from 'rollbar';
-
 Vue.prototype.$rollbar = new Rollbar({
   accessToken: '3c74899a68434b6cba74f76ba2482e66',
   captureUncaught: true,
@@ -12,8 +11,7 @@ Vue.prototype.$rollbar = new Rollbar({
 });
 
 import * as FullStory from '@fullstory/browser';
-
-FullStory.init({ orgId: 'W7JJ7' });
+FullStory.init({ orgId: 'WSXG1' });
 Vue.prototype.$FullStory = FullStory;
 
 Vue.config.errorHandler = (err, vm, info) => {
