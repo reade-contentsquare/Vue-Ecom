@@ -9,6 +9,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@fullstory/browser": "^1.4.4",
     "express": "^4.16.4",
     "rollbar": "^2.18.0",
     "vue": "^2.5.17",

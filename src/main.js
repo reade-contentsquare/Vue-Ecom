@@ -11,6 +11,11 @@ Vue.prototype.$rollbar = new Rollbar({
   captureUnhandledRejections: true
 });
 
+import * as FullStory from '@fullstory/browser';
+
+FullStory.init({ orgId: 'W7JJ7' });
+Vue.prototype.$FullStory = FullStory;
+
 Vue.config.errorHandler = (err, vm, info) => {
 	// eslint-disable-next-line
 	console.log("HERE", err, info, vm.$rollbar)
