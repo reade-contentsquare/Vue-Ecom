@@ -1,0 +1,12 @@
+service: puppeteer
+app: puppeteer-sessions
+org: readecontentsquare
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-west-2
+
+functions:
+  runSessions:
+    handler: handler.runSessions

@@ -2,15 +2,14 @@
   "name": "cs-puppeteer",
   "version": "1.0.0",
   "description": "Scripts to run sessions",
-  "main": "puppeteer.mjs",
-  "scripts": {
-    "sessions": "node --experimental-modules puppeteer.mjs"
-  },
-  "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {
-  	"cli-progress": "^3.8.2",
-    "puppeteer": "^5.2.0"
+    "chrome-aws-lambda": "3.0.4",
+    "cli-progress": "^3.8.2",
+    "puppeteer-core": "3.0.4"
+  },
+  "devDependencies": {
+    "puppeteer": "^5.2.1"
   }
 }
