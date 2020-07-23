@@ -4,7 +4,11 @@ function delay(time) {
   return new Promise(resolve => setTimeout(resolve, time));
 }
 
-export async function addToCartError(page) {
+export async function addToCartError(browser) {
+	const page = await browser.newPage()
+	await page.goto('http://contentsquare-presales-ecomm-web.s3-website-us-west-2.amazonaws.com/')
+	await page.setViewport({ width: 1440, height: 766 })
+
   await page.waitForSelector('div > .about-us > .row > .text-sm-right > h1')
   await page.click('div > .about-us > .row > .text-sm-right > h1')
   await delay(DELAY);
@@ -28,9 +32,15 @@ export async function addToCartError(page) {
   await page.waitForSelector('div > .row > .col6 > .info > .add-to-cart-button')
   await page.click('div > .row > .col6 > .info > .add-to-cart-button')
   await delay(DELAY);
+
+  await page.close();
 }
 
-export async function session2(page) {
+export async function session2(browser) {
+	const page = await browser.newPage()
+	await page.goto('http://contentsquare-presales-ecomm-web.s3-website-us-west-2.amazonaws.com/')
+	await page.setViewport({ width: 1440, height: 766 })
+
 	await page.waitForSelector('div > .carousel > #heroControls > .carousel-indicators > li:nth-child(2)')
 	await page.click('div > .carousel > #heroControls > .carousel-indicators > li:nth-child(2)')
 	await delay(DELAY);
@@ -80,6 +90,13 @@ export async function session2(page) {
 	await delay(DELAY);
 
 	await page.waitForSelector('.row > .col-6:nth-child(2) > .card > .overlay > .btn')
+	await page.click('.row > .col-6:nth-child(2) > .card > .overlay > .btn')
+	await page.click('.row > .col-6:nth-child(2) > .card > .overlay > .btn')
+	await page.click('.row > .col-6:nth-child(2) > .card > .overlay > .btn')
+	await page.click('.row > .col-6:nth-child(2) > .card > .overlay > .btn')
+	await page.click('.row > .col-6:nth-child(2) > .card > .overlay > .btn')
+	await page.click('.row > .col-6:nth-child(2) > .card > .overlay > .btn')
+	await page.click('.row > .col-6:nth-child(2) > .card > .overlay > .btn')
 	await page.click('.row > .col-6:nth-child(2) > .card > .overlay > .btn')
 	await delay(DELAY);
 
@@ -146,14 +163,26 @@ export async function session2(page) {
 	await page.waitForSelector('.modal-dialog > .modal-content > .modal-body > .close > span')
 	await page.click('.modal-dialog > .modal-content > .modal-body > .close > span')
 	await delay(DELAY);
+
+	await page.close();
 }
 
-export async function contactUs(page) {
+export async function contactUs(browser) {
+	const page = await browser.newPage()
+	await page.goto('http://contentsquare-presales-ecomm-web.s3-website-us-west-2.amazonaws.com/')
+	await page.setViewport({ width: 1440, height: 766 })
+
   await page.waitForSelector('#app > .container-flex > .navbar > .navbar-item > a:nth-child(3)')
   await page.click('#app > .container-flex > .navbar > .navbar-item > a:nth-child(3)')
   await delay(DELAY);
 
   await page.waitForSelector('.row > .col-12 > form > .form-group:nth-child(1) > .form-control')
+  await page.click('.row > .col-12 > form > .form-group:nth-child(1) > .form-control')
+  await page.click('.row > .col-12 > form > .form-group:nth-child(1) > .form-control')
+  await page.click('.row > .col-12 > form > .form-group:nth-child(1) > .form-control')
+  await page.click('.row > .col-12 > form > .form-group:nth-child(1) > .form-control')
+  await page.click('.row > .col-12 > form > .form-group:nth-child(1) > .form-control')
+  await page.click('.row > .col-12 > form > .form-group:nth-child(1) > .form-control')
   await page.click('.row > .col-12 > form > .form-group:nth-child(1) > .form-control')
   await delay(DELAY);
 
@@ -195,4 +224,6 @@ export async function contactUs(page) {
   await page.waitForSelector('#app > .container-flex > .navbar > .bag > .pb-1')
   await page.click('#app > .container-flex > .navbar > .bag > .pb-1')
   await delay(DELAY);
+
+  await page.close();
 }
