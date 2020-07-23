@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store';
+import store from './store'
+import uniqid from 'uniqid'
+
+const USER_ID = uniqid();
 
 import Rollbar from 'rollbar';
 Vue.prototype.$rollbar = new Rollbar({
@@ -15,10 +18,8 @@ FullStory.init({ orgId: process.env['VUE_APP_FULLSTORY_ORG_ID'] });
 Vue.prototype.$FullStory = FullStory;
 
 Vue.config.errorHandler = (err, vm, info) => {
-	// eslint-disable-next-line
-	console.log("HERE", err, info, vm.$rollbar)
   vm.$rollbar.error(err);
-  throw err; // rethrow
+  throw err;
 };
 
 Vue.config.productionTip = false
@@ -31,5 +32,11 @@ router.beforeEach((to, from, next) => {
 
 new Vue({
   router, store,
-  render: h => h(App)
+  render: h => h(App),
+  mounted() {
+    window._uxa.push(["trackDynamicVariable", {key: 'user_id', value: USER_ID} ]);
+    heap.identify(USER_ID);
+    hj('identify', USER_ID)
+    FullStory.identify(USER_ID)
+  }
 }).$mount('#app')
