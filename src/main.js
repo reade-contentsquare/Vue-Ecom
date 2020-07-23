@@ -11,7 +11,7 @@ Vue.prototype.$rollbar = new Rollbar({
 });
 
 import * as FullStory from '@fullstory/browser';
-FullStory.init({ orgId: 'WSXG1' });
+FullStory.init({ orgId: process.env['VUE_APP_FULLSTORY_ORG_ID'] });
 Vue.prototype.$FullStory = FullStory;
 
 Vue.config.errorHandler = (err, vm, info) => {
