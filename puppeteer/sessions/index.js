@@ -4,7 +4,7 @@ function delay(time) {
   return new Promise(resolve => setTimeout(resolve, time));
 }
 
-module.exports.addToCartError = async (browser) => {
+export async function addToCartError(browser) {
 	const page = await browser.newPage()
 	await page.goto('http://contentsquare-presales-ecomm-web.s3-website-us-west-2.amazonaws.com/')
 	await page.setViewport({ width: 1440, height: 766 })
@@ -36,7 +36,7 @@ module.exports.addToCartError = async (browser) => {
   await page.close();
 }
 
-module.exports.session2 = async (browser) => {
+export async function session2(browser) {
 	const page = await browser.newPage()
 	await page.goto('http://contentsquare-presales-ecomm-web.s3-website-us-west-2.amazonaws.com/')
 	await page.setViewport({ width: 1440, height: 766 })
@@ -167,7 +167,7 @@ module.exports.session2 = async (browser) => {
 	await page.close();
 }
 
-module.exports.contactUs = async (browser) => {
+export async function contactUs(browser) {
 	const page = await browser.newPage()
 	await page.goto('http://contentsquare-presales-ecomm-web.s3-website-us-west-2.amazonaws.com/')
 	await page.setViewport({ width: 1440, height: 766 })
