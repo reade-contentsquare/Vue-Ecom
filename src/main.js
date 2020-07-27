@@ -26,10 +26,15 @@ Vue.config.errorHandler = (err, vm, info) => {
 Vue.config.productionTip = false
 Vue.config.devtools = true
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
 	window._uxa.push(['trackPageview', to.name]);
+  _getAdvice()
   next();
 })
+
+async function _getAdvice() {
+  let response = await fetch(`http://api.icndb.com/jokes/random`);
+}
 
 new Vue({
   router, store,
