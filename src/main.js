@@ -5,6 +5,7 @@ import store from './store'
 import uniqid from 'uniqid'
 
 const USER_ID = uniqid();
+window._uxa = window._uxa || [];
 
 import Rollbar from 'rollbar';
 Vue.prototype.$rollbar = new Rollbar({
@@ -26,7 +27,7 @@ Vue.config.productionTip = false
 Vue.config.devtools = true
 
 router.beforeEach((to, from, next) => {
-	if(window._uxa) window._uxa.push(['trackPageview', to.name]);
+	window._uxa.push(['trackPageview', to.name]);
   next();
 })
 
