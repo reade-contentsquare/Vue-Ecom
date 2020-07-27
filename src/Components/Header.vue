@@ -60,7 +60,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <a class="dropdown-item" href="#">Forgot password?</a>
+            <a class="dropdown-item" @click="forgotPassword">Forgot password?</a>
             <a class="dropdown-item text-right" href="#">Sign up</a>
           </div>
         </div>
@@ -87,6 +87,10 @@ export default {
   methods: {
     openCart() {
       this.$refs.cartMove.cartON()
+    },
+    forgotPassword(){
+      // INTENTINAL ERROR
+      this.thing.password = false;
     }
   }
 }
