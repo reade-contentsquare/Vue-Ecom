@@ -18,13 +18,18 @@ import * as FullStory from '@fullstory/browser';
 FullStory.init({ orgId: process.env['VUE_APP_FULLSTORY_ORG_ID'] });
 Vue.prototype.$FullStory = FullStory;
 
+import * as Sentry from '@sentry/browser';
+import { Vue as VueIntegration } from '@sentry/integrations';
+
+Sentry.init({
+  dsn: `${process.env['VUE_APP_SENTRY_URL']}`,
+  integrations: [new VueIntegration({Vue, attachProps: true, logErrors: true})],
+});
+
 Vue.config.errorHandler = (err, vm, info) => {
   vm.$rollbar.error(err);
   throw err;
 };
-
-Vue.config.productionTip = false
-Vue.config.devtools = true
 
 router.beforeEach(async (to, from, next) => {
 	window._uxa.push(['trackPageview', to.name]);
@@ -35,6 +40,9 @@ router.beforeEach(async (to, from, next) => {
 async function _getAdvice() {
   let response = await fetch(`http://api.icndb.com/jokes/random`);
 }
+
+Vue.config.productionTip = false
+Vue.config.devtools = true
 
 new Vue({
   router, store,

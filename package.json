@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@fullstory/browser": "^1.4.4",
+    "@sentry/browser": "^5.20.1",
+    "@sentry/integrations": "^5.20.1",
     "rollbar": "^2.18.0",
     "uniqid": "^5.2.0",
     "vue": "^2.5.17",
