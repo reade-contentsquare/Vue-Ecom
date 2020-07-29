@@ -34,6 +34,24 @@
   heap.load('<%= VUE_APP_HEAP_ID %>');
   </script>
 
+  <!-- APP DYNAMICS -->
+  <script charset="UTF-8" type="text/javascript">
+  window["adrum-start-time"] = new Date().getTime();
+  (function(config){
+      config.appKey = "<%= VUE_APP_APPDYNAMICS_APP_KEY %>";
+      config.adrumExtUrlHttp = "http://cdn.appdynamics.com";
+      config.adrumExtUrlHttps = "https://cdn.appdynamics.com";
+      config.beaconUrlHttp = "http://pdx-col.eum-appdynamics.com";
+      config.beaconUrlHttps = "https://pdx-col.eum-appdynamics.com";
+      config.resTiming = {"bufSize":200,"clearResTimingOnBeaconSend":true};
+      config.maxUrlLength = 512;
+      config.page = {"captureTitle":true};
+      config.spa = {"spa2":true};
+      config.fetch = true;
+  })(window["adrum-config"] || (window["adrum-config"] = {}));
+  </script>
+  <script src="//cdn.appdynamics.com/adrum/adrum-20.5.0.3144.js"></script>
+
   <!-- NEW RELIC -->
   <script type="text/javascript">
 ;window.NREUM||(NREUM={});NREUM.init={privacy:{cookies_enabled:true}};
