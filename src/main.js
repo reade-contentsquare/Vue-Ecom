@@ -7,12 +7,12 @@ import uniqid from 'uniqid'
 const USER_ID = uniqid();
 window._uxa = window._uxa || [];
 
-import Rollbar from 'rollbar';
-Vue.prototype.$rollbar = new Rollbar({
-  accessToken: '3c74899a68434b6cba74f76ba2482e66',
-  captureUncaught: true,
-  captureUnhandledRejections: true
-});
+// import Rollbar from 'rollbar';
+// Vue.prototype.$rollbar = new Rollbar({
+//   accessToken: '3c74899a68434b6cba74f76ba2482e66',
+//   captureUncaught: true,
+//   captureUnhandledRejections: true
+// });
 
 import * as FullStory from '@fullstory/browser';
 FullStory.init({ orgId: process.env['VUE_APP_FULLSTORY_ORG_ID'] });
@@ -27,13 +27,13 @@ Sentry.init({
 });
 
 Vue.config.errorHandler = (err, vm, info) => {
-  vm.$rollbar.error(err);
+  // vm.$rollbar.error(err);
   throw err;
 };
 
 router.beforeEach(async (to, from, next) => {
 	window._uxa.push(['trackPageview', to.name]);
-  _getAdvice()
+  // _getAdvice()
   next();
 })
 
