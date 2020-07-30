@@ -1,4 +1,5 @@
 const DELAY = process.env['DELAY'] || 500;
+const SITE_URL = process.env['SITE_URL'] || 'http://contentsquare-presales-ecomm-web.s3-website-us-west-2.amazonaws.com/';
 
 function delay(time) {
   return new Promise(resolve => setTimeout(resolve, time));
@@ -6,7 +7,7 @@ function delay(time) {
 
 export async function addToCartError(browser) {
 	const page = await browser.newPage()
-	await page.goto('http://contentsquare-presales-ecomm-web.s3-website-us-west-2.amazonaws.com/')
+	await page.goto(SITE_URL)
 	await page.setViewport({ width: 1440, height: 766 })
 
   await page.waitForSelector('div > .about-us > .row > .text-sm-right > h1')
@@ -38,7 +39,7 @@ export async function addToCartError(browser) {
 
 export async function session2(browser) {
 	const page = await browser.newPage()
-	await page.goto('http://contentsquare-presales-ecomm-web.s3-website-us-west-2.amazonaws.com/')
+	await page.goto(SITE_URL)
 	await page.setViewport({ width: 1440, height: 766 })
 
 	await page.waitForSelector('div > .carousel > #heroControls > .carousel-indicators > li:nth-child(2)')
@@ -169,7 +170,7 @@ export async function session2(browser) {
 
 export async function contactUs(browser) {
 	const page = await browser.newPage()
-	await page.goto('http://contentsquare-presales-ecomm-web.s3-website-us-west-2.amazonaws.com/')
+	await page.goto(SITE_URL)
 	await page.setViewport({ width: 1440, height: 766 })
 
   await page.waitForSelector('#app > .container-flex > .navbar > .navbar-item > a:nth-child(3)')
@@ -230,7 +231,7 @@ export async function contactUs(browser) {
 
 export async function resetPassword(browser) {
 	const page = await browser.newPage()
-	await page.goto('http://contentsquare-presales-ecomm-web.s3-website-us-west-2.amazonaws.com/')
+	await page.goto(SITE_URL)
 
 	await page.setViewport({ width: 1440, height: 766 })
 
@@ -272,7 +273,7 @@ export async function resetPassword(browser) {
 export async function mobile1(browser) {
 	const page = await browser.newPage()
 
-	await page.goto('http://contentsquare-presales-ecomm-web.s3-website-us-west-2.amazonaws.com/')
+	await page.goto(SITE_URL)
 
 	await page.setViewport({ width: 404, height: 875 })
 

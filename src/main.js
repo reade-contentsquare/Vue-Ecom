@@ -20,19 +20,25 @@ Vue.prototype.$FullStory = FullStory;
 
 import * as Sentry from '@sentry/browser';
 import { Vue as VueIntegration } from '@sentry/integrations';
-
 Sentry.init({
   dsn: `${process.env['VUE_APP_SENTRY_URL']}`,
   integrations: [new VueIntegration({Vue, attachProps: true, logErrors: true})],
 });
 
+import rg4js from 'raygun4js';
+console.log(process.env['VUE_APP_RAYGUN_API_KEY'])
+rg4js('enableCrashReporting', true);
+rg4js('apiKey', process.env['VUE_APP_RAYGUN_API_KEY']);
+
 Vue.config.errorHandler = (err, vm, info) => {
   // vm.$rollbar.error(err);
+  rg4js('send', err);
   throw err;
 };
 
 router.beforeEach(async (to, from, next) => {
 	window._uxa.push(['trackPageview', to.name]);
+  rg4js('trackEvent', { type: 'pageView', path: to.name });
   // _getAdvice()
   next();
 })
@@ -52,5 +58,6 @@ new Vue({
     heap.identify(USER_ID);
     hj('identify', USER_ID)
     FullStory.identify(USER_ID)
+    rg4js('setUser', { identifier: USER_ID, isAnonymous: false });
   }
 }).$mount('#app')

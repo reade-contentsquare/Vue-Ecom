@@ -3,7 +3,7 @@ import cliProgress from 'cli-progress'
 import * as sessions from './sessions/index.js'
 
 // ssh -i "~/Documents/AWS/PuppeteerEC2.pem" ubuntu@ec2-34-212-229-248.us-west-2.compute.amazonaws.com
-// NUM_TIMES=500 DELAY=1000 node --experimental-modules puppeteer.mjs
+// cd puppeteer && NUM_TIMES=500 DELAY=1000 node --experimental-modules puppeteer.mjs
 // Run the following command to get a chrome ws address to run locally
 // /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222 --no-first-run --no-default-browser-check --user-data-dir=$(mktemp -d -t 'chrome-remote_data_dir')
 const CHROME_WS = '';

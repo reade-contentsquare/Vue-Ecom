@@ -6488,6 +6488,11 @@ raw-body@2.4.0:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
+raygun4js@^2.20.1:
+  version "2.20.1"
+  resolved "https://registry.yarnpkg.com/raygun4js/-/raygun4js-2.20.1.tgz#189422d6a3cc7af40ff07d08f232e83e0a7948a0"
+  integrity sha512-E4szfGuQu746FX7k/L+Q1CoDbKi7d/xwR/ZGxKVyvlryUL7Ovl3BhFG8zsMAfphGk71Nh0tlPxLsxYBOUNEHWQ==
+
 read-pkg@^5.0.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/read-pkg/-/read-pkg-5.2.0.tgz#7bf295438ca5a33e56cd30e053b34ee7250c93cc"
