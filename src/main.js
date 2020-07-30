@@ -30,9 +30,18 @@ console.log(process.env['VUE_APP_RAYGUN_API_KEY'])
 rg4js('enableCrashReporting', true);
 rg4js('apiKey', process.env['VUE_APP_RAYGUN_API_KEY']);
 
+import Bugsnag from '@bugsnag/js'
+import BugsnagPluginVue from '@bugsnag/plugin-vue'
+Bugsnag.start({
+  apiKey: process.env['VUE_APP_BUGSNAG_API_KEY'],
+  plugins: [new BugsnagPluginVue()],
+  user: { id: USER_ID }
+})
+
 Vue.config.errorHandler = (err, vm, info) => {
   // vm.$rollbar.error(err);
   rg4js('send', err);
+  Bugsnag.notify(err)
   throw err;
 };
 
