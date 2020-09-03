@@ -7,47 +7,17 @@ import uniqid from 'uniqid'
 const USER_ID = uniqid();
 window._uxa = window._uxa || [];
 
-// import Rollbar from 'rollbar';
-// Vue.prototype.$rollbar = new Rollbar({
-//   accessToken: '3c74899a68434b6cba74f76ba2482e66',
-//   captureUncaught: true,
-//   captureUnhandledRejections: true
-// });
+window.lpTag = window.lpTag || {};
+lpTag.sdes = lpTag.sdes||[];
 
-import * as FullStory from '@fullstory/browser';
-FullStory.init({ orgId: process.env['VUE_APP_FULLSTORY_ORG_ID'] });
-Vue.prototype.$FullStory = FullStory;
-
-import * as Sentry from '@sentry/browser';
-import { Vue as VueIntegration } from '@sentry/integrations';
-Sentry.init({
-  dsn: `${process.env['VUE_APP_SENTRY_URL']}`,
-  integrations: [new VueIntegration({Vue, attachProps: true, logErrors: true})],
-});
-
-import rg4js from 'raygun4js';
-console.log(process.env['VUE_APP_RAYGUN_API_KEY'])
-rg4js('enableCrashReporting', true);
-rg4js('apiKey', process.env['VUE_APP_RAYGUN_API_KEY']);
-
-import Bugsnag from '@bugsnag/js'
-import BugsnagPluginVue from '@bugsnag/plugin-vue'
-Bugsnag.start({
-  apiKey: process.env['VUE_APP_BUGSNAG_API_KEY'],
-  plugins: [new BugsnagPluginVue()],
-  user: { id: USER_ID }
-})
 
 Vue.config.errorHandler = (err, vm, info) => {
-  // vm.$rollbar.error(err);
-  rg4js('send', err);
-  Bugsnag.notify(err)
   throw err;
 };
 
 router.beforeEach(async (to, from, next) => {
 	window._uxa.push(['trackPageview', to.name]);
-  rg4js('trackEvent', { type: 'pageView', path: to.name });
+  window._uxa.push(['trackPageEvent', 'kek9xve7']);
   // _getAdvice()
   next();
 })
@@ -64,9 +34,37 @@ new Vue({
   render: h => h(App),
   mounted() {
     window._uxa.push(["trackDynamicVariable", {key: 'user_id', value: USER_ID} ]);
-    heap.identify(USER_ID);
-    hj('identify', USER_ID)
-    FullStory.identify(USER_ID)
-    rg4js('setUser', { identifier: USER_ID, isAnonymous: false });
+    window._uxa.push(['trackPageEvent', 'Logged In']);
+
+    lpTag.events.bind('lpUnifiedWindow', 'state', state => {
+      console.log("STATE", state)
+      console.log("IS RECORDING", _uxa.push(['isRecording']))
+      console.log("SESSION DATA", _uxa.push(["getSessionData"]))
+
+      let { projectId, userId, sessionNumber, pageNumber } = _uxa.push(["getSessionData"]);
+      let lpSde;
+      // if (projectId && userId && sessionNumber && pageNumber) {
+      //   lpSde = {
+      //       "type": "ctmrinfo",
+      //       "info": {
+      //         "customerId": userId,
+      //         "socialId": `https://app.contentsquare.com/quick-playback/index.html?pid=${projectId}&uu=${userId}&sn=${sessionNumber}&pvid=${pageNumber}&recordingType=cs`,
+      //         "userName": "Reade Test"
+      //       }
+      //   }
+      // } else {
+        lpSde = {
+            "type": "ctmrinfo",
+            "info": {
+              "customerId": '10440484441693187854',
+              "socialId": 'https://app.contentsquare.com/#/session-replay/new/sk-10440484441693187854,1/pageview/1?project=3838',
+              "userName": "Reade Test"
+            }
+        }
+      // }
+
+      lpTag.sdes.push(lpSde);
+    })
+
   }
 }).$mount('#app')
