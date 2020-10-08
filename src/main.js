@@ -7,17 +7,18 @@ import uniqid from 'uniqid'
 const USER_ID = uniqid();
 window._uxa = window._uxa || [];
 
-window.lpTag = window.lpTag || {};
-lpTag.sdes = lpTag.sdes||[];
+import * as FullStory from '@fullstory/browser';
+FullStory.init({ orgId: process.env['VUE_APP_FULLSTORY_ORG_ID'] });
+Vue.prototype.$FullStory = FullStory;
 
 
 Vue.config.errorHandler = (err, vm, info) => {
+  window._uxa.push(['trackPageEvent', err['message']]);
   throw err;
 };
 
 router.beforeEach(async (to, from, next) => {
 	window._uxa.push(['trackPageview', to.name]);
-  window._uxa.push(['trackPageEvent', 'kek9xve7']);
   // _getAdvice()
   next();
 })
@@ -34,37 +35,7 @@ new Vue({
   render: h => h(App),
   mounted() {
     window._uxa.push(["trackDynamicVariable", {key: 'user_id', value: USER_ID} ]);
-    window._uxa.push(['trackPageEvent', 'Logged In']);
-
-    lpTag.events.bind('lpUnifiedWindow', 'state', state => {
-      console.log("STATE", state)
-      console.log("IS RECORDING", _uxa.push(['isRecording']))
-      console.log("SESSION DATA", _uxa.push(["getSessionData"]))
-
-      let { projectId, userId, sessionNumber, pageNumber } = _uxa.push(["getSessionData"]);
-      let lpSde;
-      // if (projectId && userId && sessionNumber && pageNumber) {
-      //   lpSde = {
-      //       "type": "ctmrinfo",
-      //       "info": {
-      //         "customerId": userId,
-      //         "socialId": `https://app.contentsquare.com/quick-playback/index.html?pid=${projectId}&uu=${userId}&sn=${sessionNumber}&pvid=${pageNumber}&recordingType=cs`,
-      //         "userName": "Reade Test"
-      //       }
-      //   }
-      // } else {
-        lpSde = {
-            "type": "ctmrinfo",
-            "info": {
-              "customerId": '10440484441693187854',
-              "socialId": 'https://app.contentsquare.com/#/session-replay/new/sk-10440484441693187854,1/pageview/1?project=3838',
-              "userName": "Reade Test"
-            }
-        }
-      // }
-
-      lpTag.sdes.push(lpSde);
-    })
-
+    window._uxa.push(['trackPageEvent', `Logged In ID:${USER_ID}`]);
+    FullStory.identify(USER_ID)
   }
 }).$mount('#app')
