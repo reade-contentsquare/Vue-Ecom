@@ -1,3 +1,5 @@
+// TODO add site url utms
+
 const DELAY = process.env['DELAY'] || 500;
 const SITE_URL = process.env['SITE_URL'] || 'http://contentsquare-presales-ecomm-web.s3-website-us-west-2.amazonaws.com/';
 
