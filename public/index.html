@@ -116,6 +116,158 @@
     //remove script tag if needed
     </script>
 
+    <script type="text/javascript">
+    //remove script tag if needed
+
+    /*
+     *Name: Google Optimize CS Integration
+     *Version: 1.10
+     */
+    (function () {
+
+        function init() {
+
+            var tvp = "AB_GO_";
+
+            function sendToCS(csKey, csValue) {
+                csKey = tvp + csKey;
+
+                _uxa.push(["trackDynamicVariable", {
+                    key: csKey,
+                    value: csValue
+                }]);
+            }
+
+            function dispatch(key, val) {
+                if (key && val) {
+                    sendToCS(key, val);
+                }
+            }
+
+            function gtagPatch() {
+                dataLayer.push(arguments);
+            }
+
+            function startGOIntegration() {
+                setTimeout(function () {
+
+                    var useGAdataObject = false;
+
+                    for (var i in gaData) {
+                        if (!useGAdataObject) {
+
+                            if (gaData.hasOwnProperty(i)) {
+                                var gaDataIexperiments;
+
+                                if (gaData[i].experiments) {
+                                    useGAdataObject = true;
+                                }
+                            }
+
+                        }
+                    }
+
+                    var campaignName = "";
+                    var variationName = "";
+
+                    if (useGAdataObject) {
+
+                        var gaDataKeys = Object.keys(gaData);
+
+                        for (var i = 0; i < gaDataKeys.length; i++) {
+
+                            if (gaData[gaDataKeys[i]].experiments) {
+                                var getExperiments = gaData[gaDataKeys[i]].experiments;
+                                var getExperimentKeys = Object.keys(getExperiments);
+
+                                for (var j = 0; j < getExperimentKeys.length; j++) {
+                                    var experimentKey = getExperimentKeys[j];
+
+                                    campaignName = experimentKey;
+                                    variationName = gaData[gaDataKeys[i]].experiments[experimentKey];
+
+                                    dispatch(campaignName, variationName);
+                                }
+                            }
+                        }
+
+                    } else {
+
+                        var dls = document.location.search;
+
+                        if (dls.indexOf("utm_expid=.") > -1) {
+                            var getTests = decodeURIComponent(dls.substr(dls.indexOf("utm_expid=") + 11).split("&")[0]);
+                            if (getTests) {
+                                campaignName = getTests.split(".")[0];
+                                variationName = getTests.split(".")[1];
+
+                                dispatch(campaignName, variationName);
+                            }
+                        } else if (window.dataLayer) {
+
+                            var execute = (window.gtag) ? gtag : gtagPatch;
+
+                            execute('event', 'optimize.callback', {
+                                callback: function (value, name) {
+                                    if (name && value) {
+                                        campaignName = name;
+                                        variationName = value;
+
+                                        dispatch(campaignName, variationName);
+                                    }
+                                }
+                            });
+                        }
+                    }
+
+                }, 500);
+            }
+
+            var integrationStarted = false;
+
+            var gaData = window.gaData;
+            if (gaData) {
+                startGOIntegration();
+            } else {
+                Object.defineProperty(window, "gaData", {
+                    configurable: true,
+                    get: function () {
+                        return gaData;
+                    },
+                    set: function (n) {
+                        gaData = n;
+                        if (!integrationStarted) {
+                            integrationStarted = true;
+                            startGOIntegration();
+                        }
+                    }
+                });
+            }
+        }
+
+        function callback() {
+
+            if (!disableCallback) {
+                disableCallback = true;
+                init();
+
+                if (window.CS_CONF) {
+                    CS_CONF.integrations = CS_CONF.integrations || [];
+                    CS_CONF.integrations.push("Google Optimize");
+                }
+            }
+        }
+
+        var disableCallback = false;
+
+        window._uxa = window._uxa || [];
+        _uxa.push(["afterPageView", callback]);
+    })();
+    //Google Optimize CS Integration End
+
+    //remove script tag if needed
+    </script>
+
 
     <script async src="https://www.googleoptimize.com/optimize.js?id=<%= VUE_APP_OPT_CONTAINER_ID %>"></script>
 
